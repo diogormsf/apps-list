@@ -1,0 +1,8 @@
+.appCard {
+  margin: 15px 20px 15px 20px;
+}
+
+.subscriptionLine {
+  display: flex;
+  flex-direction: column;
+}

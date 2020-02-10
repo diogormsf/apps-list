@@ -1,0 +1,21 @@
+<div class="mainSearch">
+  <!-- Search bar -->
+  <mat-form-field class="searchForm">
+    <mat-label>{{ searchText }}</mat-label>
+    <input matInput type="text" [(ngModel)]="searchValue">
+    <!-- Button to clear the value of the search bar -->
+    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- List of apps using cards -->
+  <div *ngFor="let app of pagedApps" class="listSearch">
+    <app-app-detail class="appDetail" [app]="app"></app-app-detail>
+  </div>
+  <!-- Paginator that detects a pageevent and changes the showing apps -->
+  <mat-paginator class="paginatorSearch" [length]="apps.length" [pageSize]="3" [hidePageSize]="true"
+    (page)="pageChanged($event)" style="flex: 1;">
+  </mat-paginator>
+
+</div>

@@ -1,0 +1,9 @@
+.drawerContainerMain {
+  display: flex;
+  height: 100%;
+}
+
+.sideDrawerMain {
+  border: none;
+  background-color: #fafafa;
+}

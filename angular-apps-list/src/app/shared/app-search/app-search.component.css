@@ -1,0 +1,22 @@
+.mainSearch {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.searchForm {
+  flex: 1;
+}
+
+.listSearch {
+  flex: 100%;
+}
+
+.appDetail:hover {
+  opacity: 0.5;
+}
+
+.paginatorSearch {
+  flex: 1;
+  background-color: #fafafa;
+}

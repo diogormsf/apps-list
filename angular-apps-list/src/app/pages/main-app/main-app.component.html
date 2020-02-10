@@ -1,0 +1,13 @@
+<!-- Sidenav structure to accomodate categories -->
+<mat-drawer-container
+  class="drawerContainerMain"
+  [autosize]="true">
+  <!-- Categories sidenavigation -->
+  <mat-drawer class="sideDrawerMain nav-categories" mode="side" opened>
+    <app-categories-list></app-categories-list>
+  </mat-drawer>
+  <!-- App content containing the search bar and list -->
+  <mat-drawer-content class="apps-list">
+    <app-app-search></app-app-search>
+  </mat-drawer-content>
+</mat-drawer-container>
