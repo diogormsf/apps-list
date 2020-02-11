@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import * as fs from "fs";
 
-const JSON_PATH = "src/data/apps.json";
-
 class CategoriesController {
 
     public async getAll(req: Request, res: Response): Promise<Response> {
         try {
-            fs.readFile(JSON_PATH, (err, data) => {
+            fs.readFile(process.env.JSON_PATH, (err, data) => {
                 if (err) throw err;
                 const apps = JSON.parse(data.toString());
                 let categories = [];
