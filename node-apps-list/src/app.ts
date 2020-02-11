@@ -7,7 +7,9 @@ export class App {
     public static run (port: number): void {
         const app = new App().express;
 
-        app.listen(port)
+        app.listen(port, () => {
+            console.log(`App-list listening on port ${port}!`);
+        });
     }
 
     public express: express.Application;
