@@ -10,6 +10,7 @@ import { CategoriesListComponent } from './shared/categories-list/categories-lis
 import { AppSearchComponent } from './shared/app-search/app-search.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

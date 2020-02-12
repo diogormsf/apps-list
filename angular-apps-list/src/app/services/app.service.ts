@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { App } from '../models/App';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 const APPS = [
   {
@@ -186,22 +189,42 @@ const APPS = [
   }
 ];
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true'
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllApps(): Observable<Array<App>> {
-    const resultApps = [];
+  getApps(category?: string, searchValue?: string): Observable<Array<App>> {
+    const requestBody = {};
 
-    APPS.forEach(elem => {
-      resultApps.push(new App().deserialize(elem));
-    });
+    if (category != null && category.trim() !== '') {
+      Object.assign(requestBody, { category });
+    }
 
-    return of(resultApps);
+    if (searchValue != null && searchValue.trim() !== '') {
+      Object.assign(requestBody, { searchFilter: searchValue });
+    }
+
+    return this.http.post(environment.nodeUrl + '/getApps', requestBody, httpOptions)
+    .pipe(
+      map(resp => {
+        let apps = resp['message'] as Array<any>;
+
+        apps = apps.map(elem => new App().deserialize(elem));
+
+        return apps;
+      })
+    );
   }
-
-
 }

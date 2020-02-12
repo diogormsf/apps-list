@@ -1,9 +1,17 @@
 <mat-card class="appCard">
-  <mat-card-title>{{ app.name }}</mat-card-title>
-  <mat-card-subtitle>{{ app.description }}</mat-card-subtitle>
+  <mat-card-title class="titleFlex">
+    {{ app.name }}
+    <div style="display: flex;">
+      <span class="categoryName" *ngFor="let cat of app.categories">{{ cat }}&nbsp;&nbsp;</span>
+    </div>
+  </mat-card-title>
+  <mat-card-subtitle class="appSubtitle">{{ app.description }}</mat-card-subtitle>
   <mat-card-content>
     <div class="subscriptionLine">
-
+      <div class="subscriptionItem" *ngFor="let subscription of app.subscriptions">
+        <h4>{{ subscription.name }}</h4>
+        <h3>{{ subscription.price | currency: 'EUR' }}</h3>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

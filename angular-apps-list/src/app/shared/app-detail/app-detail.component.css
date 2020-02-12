@@ -2,7 +2,24 @@
   margin: 15px 20px 15px 20px;
 }
 
+.titleFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.appSubtitle {
+  margin-bottom: 25px;
+}
+
 .subscriptionLine {
   display: flex;
-  flex-direction: column;
+}
+
+.subscriptionItem {
+  display: flex;
+  align-items: center;
+}
+
+.categoryName {
+  font-size: 15px;
 }
