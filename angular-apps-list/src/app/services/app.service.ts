@@ -5,190 +5,6 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
-const APPS = [
-  {
-    id: '9b565b11-7311-5b5e-a699-97873dffb361',
-    name: 'Voice Report',
-    description: 'Calls reporting and analytics of your calls.',
-    categories: [
-      'Voice Analytics',
-      'Reporting',
-      'Optimization'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 3500
-      }
-    ]
-  },
-  {
-    id: '470fedc5-489e-5acb-a200-c85adaa18356',
-    name: 'Power Dialer',
-    description: 'Auto dialer that will help increase your connect rates and talk time.',
-    categories: [
-      'Dialer'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 4500
-      },
-      {
-        name: 'Premium',
-        price: 6000
-      }
-    ]
-  },
-  {
-    id: '52714d80-e3c4-5593-b9a3-e2ff484be372',
-    name: 'Smart Text',
-    description: 'Use SMS to help you communicate with your customers.',
-    categories: [
-      'Channels'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      }
-    ]
-  },
-  {
-    id: '8d68c357-59e6-505a-b0e1-4953196b14df',
-    name: 'Customer Chat',
-    description: 'Improve your call center with live chat support.',
-    categories: [
-      'Channels'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      }
-    ]
-  },
-  {
-    id: 'dd024ed5-efae-5785-addc-09e592066e5c',
-    name: 'Report Plus',
-    description: 'Advanced reporting with custom dashboards.',
-    categories: [
-      'Reporting'
-    ],
-    subscriptions: [
-      {
-        name: 'Starter',
-        price: 2000
-      },
-      {
-        name: 'Plus',
-        price: 4500
-      }
-    ]
-  },
-  {
-    id: 'f820ad5d-32d0-5bb7-aed4-cbc74bcf0b47',
-    name: 'Screen Share',
-    description: 'Enable screen sharing between your agents and customers.',
-    categories: [
-      'Productivity'
-    ],
-    subscriptions: [
-      {
-        name: 'Professional',
-        price: 6000
-      }
-    ]
-  },
-  {
-    id: '7f89f001-9d7d-52f1-82cb-8f44eb1e4680',
-    name: 'Video Contacts',
-    description: 'Communicate with your customers and agents using video calls.',
-    categories: [
-      'Productivity'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 2500
-      }
-    ]
-  },
-  {
-    id: '32be8940-aeb6-5325-ae63-6497772f362a',
-    name: 'Agent Monitor',
-    description: 'More tools to monitor your agents activity.',
-    categories: [
-      'Productivity',
-      'Management'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 3000
-      }
-    ]
-  },
-  {
-    id: 'b4e7899b-07ba-55b1-9ed3-c38b878623fe',
-    name: 'Awesome Calls',
-    description: 'Tools to optimize your call center with voice analytics.',
-    categories: [
-      'Optimization',
-      'Voice Analytics'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 5000
-      },
-      {
-        name: 'Enterprise',
-        price: 10000
-      }
-    ]
-  },
-  {
-    id: 'd8652502-f8f2-5c35-8de5-b9adfebbf4cf',
-    name: 'Scripted',
-    description: 'Help your agents communicate with customers using scripts.',
-    categories: [
-      'Productivity',
-      'Optimization'
-    ],
-    subscriptions: [
-      {
-        name: 'Trial',
-        price: 0
-      },
-      {
-        name: 'Professional',
-        price: 4000
-      }
-    ]
-  }
-];
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -198,6 +14,13 @@ const httpOptions = {
   })
 };
 
+/**
+ * Service class to house all connections to the backend
+ * regarding the App object
+ *
+ * @export
+ * @class AppService
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -205,13 +28,26 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Method that given or not a category or a small text returns the apps
+   * filter by those two parameters. Both parameters are optional and if
+   * none of them is present all apps are returned.
+   *
+   * @param {string} [category] the selected category from the left pane of the app
+   * @param {string} [searchValue] the text inserted by the user in the search bar at
+   * the top of the app
+   * @returns {Observable<Array<App>>}
+   * @memberof AppService
+   */
   getApps(category?: string, searchValue?: string): Observable<Array<App>> {
     const requestBody = {};
 
+    // Checks if there is any category sent
     if (category != null && category.trim() !== '') {
       Object.assign(requestBody, { category });
     }
 
+    // Checks if there is any search filter sent
     if (searchValue != null && searchValue.trim() !== '') {
       Object.assign(requestBody, { searchFilter: searchValue });
     }
@@ -221,6 +57,7 @@ export class AppService {
       map(resp => {
         let apps = resp['message'] as Array<any>;
 
+        // Mapps every element in the response to an App model object
         apps = apps.map(elem => new App().deserialize(elem));
 
         return apps;

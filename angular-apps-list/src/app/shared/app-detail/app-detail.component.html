@@ -1,4 +1,6 @@
+<!-- Material card element -->
 <mat-card class="appCard">
+  <!-- Card title with the categories list at the right end of the card -->
   <mat-card-title class="titleFlex">
     {{ app.name }}
     <div style="display: flex;">
@@ -6,11 +8,18 @@
     </div>
   </mat-card-title>
   <mat-card-subtitle class="appSubtitle">{{ app.description }}</mat-card-subtitle>
+  <!-- Horizontal list of subscriptions and prices -->
   <mat-card-content>
     <div class="subscriptionLine">
       <div class="subscriptionItem" *ngFor="let subscription of app.subscriptions">
         <h4>{{ subscription.name }}</h4>
-        <h3>{{ subscription.price | currency: 'EUR' }}</h3>
+        <!-- if statement to check if the price is 0 and if so display 'Free' -->
+        <ng-container *ngIf="subscription.price != 0; else elseTemplate">
+          <h3>{{ subscription.price | currency: 'EUR' }}</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <h3>Free</h3>
+        </ng-template>
       </div>
     </div>
   </mat-card-content>

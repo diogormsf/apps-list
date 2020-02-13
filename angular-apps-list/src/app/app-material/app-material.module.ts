@@ -10,6 +10,13 @@ import {  MatInputModule,
           MatListModule
         } from '@angular/material';
 
+/**
+ * Module containing all Angular Material imports to maintain
+ * the app.module as simple as possible
+ *
+ * @export AppMaterialModule class
+ * @class AppMaterialModule
+ */
 @NgModule({
   imports: [
     CommonModule,

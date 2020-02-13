@@ -2,7 +2,10 @@
 
 <ul>
   <mat-nav-list>
+    <!-- List element to display all apps without any category filter -->
     <a mat-list-item [routerLink]="['/main']" routerLinkActive="router-link-active" >All</a>
+    <!-- Foreach bind to display each category with a routerlink to the same component
+    but with a uri parameter corresponding to the selected category -->
     <a mat-list-item *ngFor="let cat of categories" [routerLink]="['/main', cat]" routerLinkActive="router-link-active" >{{ cat }}</a>
  </mat-nav-list>
 </ul>
