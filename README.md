@@ -34,7 +34,7 @@ npm run dev
 <>
 In order to run unit tests developed for the app run the following command
 
-```
+```bash
 cd angular-apps-list
 ng test
 ```
