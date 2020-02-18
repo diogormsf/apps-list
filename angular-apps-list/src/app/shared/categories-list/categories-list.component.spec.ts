@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoriesListComponent } from './categories-list.component';
 import { AppMaterialModule } from 'src/app/app-material/app-material.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,8 +10,13 @@ import { MainAppComponent } from 'src/app/pages/main-app/main-app.component';
 import { AppSearchComponent } from '../app-search/app-search.component';
 import { FormsModule } from '@angular/forms';
 import { AppDetailComponent } from '../app-detail/app-detail.component';
+import { CategoryService } from 'src/app/services/category.service';
 
 describe('CategoriesListComponent', () => {
+  let injector: TestBed;
+  let service: CategoryService;
+  let httpMock: HttpTestingController;
+
   let component: CategoriesListComponent;
   let fixture: ComponentFixture<CategoriesListComponent>;
   let navigateSpy;
@@ -43,12 +48,16 @@ describe('CategoriesListComponent', () => {
         AppSearchComponent,
         AppDetailComponent
       ],
-      providers: []
+      providers: [CategoryService]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    injector = getTestBed();
+    service = injector.get(CategoryService);
+    httpMock = injector.get(HttpTestingController);
+
     fixture = TestBed.createComponent(CategoriesListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -58,16 +67,22 @@ describe('CategoriesListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-/*   it('should navigate to All', () => {
+  it('should have All tag', () => {
     const allLink = fixture.debugElement.queryAll(By.css('a'))[0];
-    console.log(allLink.nativeElement);
-    allLink.nativeElement.click();
 
-    fixture.detectChanges();
+    expect(allLink.nativeElement.innerText).toContain('All');
+  });
 
-    fixture.whenStable().then(() => {
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/main']);
+  it('should have same number of link as categories + 1', () => {
+    const allLink = fixture.debugElement.queryAll(By.css('a'));
+
+    service.getAllCategories().subscribe((res) => {
+      expect(res.length + 1).toEqual(allLink.length);
     });
-  }); */
+
+    const appRequest = httpMock.match('http://localhost:3001/getCategories');
+    expect(appRequest[0].request.method).toBe('POST');
+    appRequest[0].flush([]);
+  });
 
 });

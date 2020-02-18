@@ -55,7 +55,8 @@ export class AppService {
     return this.http.post(environment.nodeUrl + '/getApps', requestBody, httpOptions)
     .pipe(
       map(resp => {
-        let apps = resp['message'] as Array<any>;
+        let apps = [];
+        apps = apps.concat(resp['message'] as Array<any>);
 
         // Mapps every element in the response to an App model object
         apps = apps.map(elem => new App().deserialize(elem));

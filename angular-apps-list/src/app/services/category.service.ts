@@ -36,7 +36,11 @@ export class CategoryService {
   getAllCategories(): Observable<Array<string>> {
     return this.http.post(environment.nodeUrl + '/getCategories', {}, httpOptions)
       .pipe(
-        map(resp => resp['categories'])
+        map(resp => {
+          let cat = [];
+          cat = cat.concat(resp['categories']);
+          return cat;
+        })
       );
   }
 }
