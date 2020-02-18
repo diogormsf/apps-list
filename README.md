@@ -31,11 +31,17 @@ npm run dev
 ```
 
 ## Testing
-<>
-In order to run unit tests developed for the app run the following command
+In order to run unit tests developed for the app, first up start the Node.js server...
 
+```bash
+cd node-apps-list
+npm run dev
 ```
-cd angular-apps-list
+
+...and then run the following command
+
+```bash
+cd ../angular-apps-list
 ng test
 ```
 
