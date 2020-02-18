@@ -23,7 +23,7 @@ cd node-apps-list
 npm run dev
 ```
 
-After that serve the Angular app to open a browser instance with the app running.
+After that, in a new terminal instance, serve the Angular app to open a browser instance with the app running.
 
 ```bash
 cd angular-apps-list
@@ -38,7 +38,7 @@ cd node-apps-list
 npm run dev
 ```
 
-...and then run the following command
+...and then run the following commands.
 
 ```bash
 cd ../angular-apps-list
