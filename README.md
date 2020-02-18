@@ -10,7 +10,19 @@ The frontend is responsible for displaying all the information that retrieve fro
 
 Use the package manager [npm](https://www.npmjs.com/) to install all the packages needed to run apps_listing v0.1.
 
+Install the packages in both parts of the application.
+
+In Angular:
+
 ```bash
+cd angular-apps-list
+npm install
+```
+
+In Node:
+
+```bash
+cd node-apps-list
 npm install
 ```
 
