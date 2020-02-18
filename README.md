@@ -2,7 +2,7 @@
 
 Apps_listing v0.1 is an app that aims to display information about other apps as well as their subscriptions.
 
-The app can be broke into two major pieces which are the frontend, using Angular, and the backend, using Node.js.
+The app can be broken down into two major pieces which are the frontend, using Angular, and the backend, using Node.js.
 
 The frontend is responsible for displaying all the information that retrieve from the services. The backend is responsible to get all the data from the data source, and expose the services to the frontend.
 
